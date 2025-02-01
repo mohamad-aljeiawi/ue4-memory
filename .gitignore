@@ -1,0 +1,53 @@
+# Build directories
+build/
+bin/
+obj/
+libs/
+.cxx/
+
+# IDE specific files
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+# Compiled files
+*.o
+*.so
+*.dll
+*.dylib
+*.class
+*.exe
+*.out
+
+# Android specific
+local.properties
+.gradle/
+*.apk
+*.aab
+*.aar
+*.ap_
+*.dex
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Debug files
+*.pdb
+*.ilk
+*.exp
+
+# Dependencies
+node_modules/ 
