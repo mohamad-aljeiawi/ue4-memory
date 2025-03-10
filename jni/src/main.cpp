@@ -4,7 +4,6 @@ bool init()
 {
     LOGI("Initializing...");
 
-    // Initialize your code here
     is_running = true;
     return true;
 }
@@ -45,7 +44,7 @@ int main(int argc, char *argv[])
         // printf("u_world: 0x%lX\n", u_world);
         uintptr_t u_level = Memory::Read<uintptr_t>(u_world + Offset::persistent_level, target_pid);
         // printf("u_level: 0x%lX\n", u_level);
-        uintptr_t entity_list = Utils::get_actors_array(u_level, Offset::u_level_to_a_actors, 0x448, target_pid);
+        uintptr_t entity_list = Ue4::get_actors_array(u_level, Offset::u_level_to_a_actors, 0x448, target_pid);
         // printf("entity_list: 0x%lX\n", entity_list);
         uintptr_t u_level_to_a_actors = Memory::Read<uintptr_t>(entity_list, target_pid);
         // printf("u_level_to_aActors: 0x%lX\n", u_level_to_aActors);
@@ -68,42 +67,50 @@ int main(int argc, char *argv[])
             }
 
             uintptr_t g_names = Memory::Read<uintptr_t>(Memory::Read<uintptr_t>(lib_base + Offset::g_name, target_pid) + 0x110, target_pid);
-            if (g_names == 0) continue;
+            if (g_names == 0)
+                continue;
 
             // Create array to cache GName table pointers
             std::vector<uintptr_t> gname_buff(30, 0);
             // Read first entry to verify
             gname_buff[0] = Memory::Read<uintptr_t>(g_names, target_pid);
-            if (gname_buff[0] == 0) continue;
+            if (gname_buff[0] == 0)
+                continue;
 
             int class_id = Memory::Read<int>(actor + 8 + 2 * sizeof(uintptr_t), target_pid);
             int page = class_id / 0x4000;
             int index = class_id % 0x4000;
 
             // Validate page number
-            if (page < 1 || page > 30) continue;
+            if (page < 1 || page > 30)
+                continue;
 
             // Lazy load the page if not cached
-            if (gname_buff[page] == 0) {
+            if (gname_buff[page] == 0)
+            {
                 gname_buff[page] = Memory::Read<uintptr_t>(g_names + page * sizeof(uintptr_t), target_pid);
             }
 
             // Get name entry
             uintptr_t name_entry = Memory::Read<uintptr_t>(gname_buff[page] + index * sizeof(uintptr_t), target_pid);
-            if (name_entry == 0) continue;
+            if (name_entry == 0)
+                continue;
 
             // Read the actual string data
             char name_buffer[256] = {0};
             uintptr_t string_ptr = name_entry + 4 + sizeof(uintptr_t); // Skip header
             size_t read_size = 0;
-            
-            while (read_size < sizeof(name_buffer) - 1) {
+
+            while (read_size < sizeof(name_buffer) - 1)
+            {
                 char c = Memory::Read<char>(string_ptr + read_size, target_pid);
-                if (c == 0) break;
+                if (c == 0)
+                    break;
                 name_buffer[read_size++] = c;
             }
 
-            if (read_size > 0 && Utils::is_printable_ascii(name_buffer)) {
+            if (read_size > 0 && Utils::is_printable_ascii(name_buffer))
+            {
                 printf("  Class Name: %s\n", name_buffer);
             }
 

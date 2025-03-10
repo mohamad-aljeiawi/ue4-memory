@@ -14,6 +14,7 @@
 #include "utils/offset.h"
 #include "utils/utils.h"
 #include "utils/ue4.h"
+#include "utils/structs.h"
 
 // Global variables
 static pid_t target_pid;
