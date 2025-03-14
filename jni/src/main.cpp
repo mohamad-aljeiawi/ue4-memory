@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
     while (is_running)
     {
         uintptr_t u_world = Memory::Read<uintptr_t>(Memory::Read<uintptr_t>(g_world + 0x58, target_pid) + 0x78, target_pid);
+        // uintptr_t u_world = Memory::Read<uintptr_t>(g_world + 0x20, target_pid);
         // printf("u_world: 0x%lX\n", u_world);
         uintptr_t u_level = Memory::Read<uintptr_t>(u_world + Offset::persistent_level, target_pid);
         // printf("u_level: 0x%lX\n", u_level);

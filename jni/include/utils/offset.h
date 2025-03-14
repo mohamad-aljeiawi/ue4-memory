@@ -6,8 +6,8 @@
 namespace Offset
 {
     //-- Base Offset G-Objects
-    uintptr_t g_name = 0xD66B2C0;
-    uintptr_t g_world = 0xdc10ff0;
+    uintptr_t g_name = 0xd877440;
+    uintptr_t g_world = 0xde24c70;
     //-- Base Offset UWorld
     uintptr_t persistent_level = 0x30;
     uintptr_t u_level_to_a_actors = 0xA0;

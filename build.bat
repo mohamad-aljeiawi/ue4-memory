@@ -6,7 +6,7 @@ adb shell su -c "killall -9 memlib"
 
 :: Build using ndk-build
 echo Building with NDK...
-call "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/28.0.12674087/ndk-build"
+call "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/ndk-build"
 if %ERRORLEVEL% NEQ 0 (
     echo Build failed!
     pause
@@ -15,7 +15,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 :: Push to device
 echo Pushing to device...
-adb push "C:/Users/mobil/Desktop/project/C++/yun-ang/libs/arm64-v8a/memlib" "/data/local/tmp/"
+adb push "C:/Users/mobil/Desktop/project/c++/yun-ang/libs/arm64-v8a/memlib" "/data/local/tmp/"
 if %ERRORLEVEL% NEQ 0 (
     echo Push failed!
     pause
