@@ -15,6 +15,8 @@
 #include "utils/utils.h"
 #include "utils/ue4.h"
 #include "utils/structs.h"
+#include "utils/socket_server.h"
+#include "utils/frame_time.h"
 
 // Global variables
 static pid_t target_pid;

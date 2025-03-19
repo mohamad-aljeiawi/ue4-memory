@@ -16,6 +16,11 @@ namespace Utils
         return !str.empty() && std::all_of(str.begin(), str.end(), ::isdigit);
     }
 
+    bool is_contains(const std::string &str, const std::string &sub)
+    {
+        return str.find(sub) != std::string::npos;
+    }
+
     std::string read_file_content(const std::string &path)
     {
         std::ifstream file(path);
