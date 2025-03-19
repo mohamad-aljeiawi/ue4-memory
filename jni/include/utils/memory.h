@@ -10,7 +10,6 @@
 
 namespace Memory
 {
-    // Read any type from memory
     template <typename T>
     T Read(uintptr_t address, pid_t pid)
     {
@@ -23,7 +22,6 @@ namespace Memory
         return T{};
     }
 
-    // Write any type to memory
     template <typename T>
     bool Write(uintptr_t address, const T &value, pid_t pid)
     {
@@ -31,7 +29,6 @@ namespace Memory
         return Process::Write((void *)address, (void *)&value, sizeof(T), pid);
     }
 
-    // Read string (with known size)
     std::string ReadString(uintptr_t address, size_t max_length, pid_t pid)
     {
         std::vector<char> buffer(max_length);
@@ -42,7 +39,6 @@ namespace Memory
         return std::string(buffer.data());
     }
 
-    // Read string (null-terminated)
     std::string ReadString(uintptr_t address, pid_t pid)
     {
         const size_t chunk_size = 32;
@@ -70,7 +66,7 @@ namespace Memory
             offset += chunk_size;
 
             if (offset > 1024)
-            { // Safety limit
+            {
                 break;
             }
         }
@@ -78,7 +74,6 @@ namespace Memory
         return result;
     }
 
-    // Read array of items
     template <typename T>
     std::vector<T> ReadArray(uintptr_t address, size_t count, pid_t pid)
     {
@@ -93,7 +88,6 @@ namespace Memory
         return std::vector<T>();
     }
 
-    // Scan for pattern in memory range
     std::vector<uintptr_t> FindPattern(uintptr_t start, uintptr_t end,
                                        const std::vector<uint8_t> &pattern,
                                        const std::vector<bool> &mask,
