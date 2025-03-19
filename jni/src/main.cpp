@@ -82,6 +82,7 @@ int main(int argc, char *argv[])
         fps_controller.start_frame();
 
         uintptr_t u_world = Memory::Read<uintptr_t>(Memory::Read<uintptr_t>(g_world + 0x58, target_pid) + 0x78, target_pid);
+        uintptr_t player_controller = Memory::Read<uintptr_t>(Memory::Read<uintptr_t>(Memory::Read<uintptr_t>(u_world + 0x38, target_pid) + 0x78, target_pid) + 0x30, target_pid);
         // uintptr_t u_world = Memory::Read<uintptr_t>(g_world + 0x20, target_pid);
         uintptr_t u_level = Memory::Read<uintptr_t>(u_world + Offset::persistent_level, target_pid);
         uintptr_t entity_list = Ue4::get_actors_array(u_level, Offset::u_level_to_a_actors, 0x448, target_pid);
@@ -94,8 +95,17 @@ int main(int argc, char *argv[])
             continue;
         }
 
+        uintptr_t player_camera_manager = Memory::Read<uintptr_t>(player_controller + Offset::player_camera_manager, target_pid);
+        if (player_camera_manager <= 0)
+            continue;
+        Structs::CameraCacheEntry camera_cache = Memory::Read<Structs::CameraCacheEntry>(player_camera_manager + Offset::camera_cache, target_pid);
+        Structs::MinimalViewInfo minimal_view_info = camera_cache.POV;
+
         for (int i = 0; i < u_level_to_a_actors_count; i++)
         {
+
+            printf("MinimalViewInfo: %0.1f, %0.1f, %0.1f, %0.1f\n", minimal_view_info.Location.X, minimal_view_info.Location.Y, minimal_view_info.Location.Z, minimal_view_info.FOV);
+
             uintptr_t actor = Memory::Read<uintptr_t>(u_level_to_a_actors + i * sizeof(uintptr_t), target_pid);
             if (!actor)
             {
@@ -110,7 +120,21 @@ int main(int argc, char *argv[])
 
             if (Utils::is_contains(class_name, "BP_STPlayerStart") || Utils::is_contains(class_name, "BP_PlayerPawn") || Utils::is_contains(class_name, "BP_PlayerState"))
             {
-                printf("Class Name: %s\n", class_name.c_str());
+
+                uintptr_t actor_root_component = Memory::Read<uintptr_t>(actor + Offset::root_component, target_pid);
+                if (actor_root_component == 0)
+                {
+                    continue;
+                }
+
+                Structs::FVector actor_location = Memory::Read<Structs::FVector>(actor_root_component + Offset::relative_location, target_pid);
+                Structs::FRotator actor_rotation = Memory::Read<Structs::FRotator>(actor_root_component + Offset::relative_rotation, target_pid);
+
+                // printf("Class Name: %s\n", class_name.c_str());
+                // printf("Location: %0.1f, %0.1f, %0.1f\n", actor_location.X, actor_location.Y, actor_location.Z);
+                // printf("Rotation: %0.1f, %0.1f, %0.1f\n", actor_rotation.Pitch, actor_rotation.Yaw, actor_rotation.Roll);
+
+                // printf("Class Name: %s\n", class_name.c_str());
                 socket_server->send_data(class_name + "\n");
             }
 

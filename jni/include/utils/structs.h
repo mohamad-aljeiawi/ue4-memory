@@ -61,6 +61,21 @@ namespace Structs
         FRotator(float pitch, float yaw, float roll) : Pitch(pitch), Yaw(yaw), Roll(roll) {}
     };
 
+    struct MinimalViewInfo
+    {
+        FVector Location;
+        FVector LocationLocalSpace;
+        FRotator Rotation;
+        float FOV;
+    };
+
+    struct CameraCacheEntry
+    {
+        float TimeStamp;
+        char chunks[0xC];
+        MinimalViewInfo POV;
+    };
+
 } // namespace Structs
 
 #endif // STRUCTS_H
