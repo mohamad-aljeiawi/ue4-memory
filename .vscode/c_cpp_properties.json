@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "name": "Android",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/sources/cxx-stl/system/**",
+        "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/**",
+        "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/android",
+        "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/include"
+      ],
+      "defines": [],
+      "compilerPath": "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe",
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "clang-x64"
+    }
+  ],
+  "version": 4
+}

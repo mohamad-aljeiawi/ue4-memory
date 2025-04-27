@@ -7,7 +7,6 @@ libs/
 
 # IDE specific files
 .idea/
-.vscode/
 *.iml
 .project
 .classpath
@@ -51,3 +50,5 @@ Makefile
 
 # Dependencies
 node_modules/ 
+
+main.cpp.bak

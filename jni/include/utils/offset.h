@@ -58,6 +58,7 @@ namespace Offset
     uintptr_t fuel_max = 0x380; // float FuelMax;
     uintptr_t fuel = 0x384;     // float Fuel;
 
+	// old dont ues-----------------------------------------------
     //--Class: STExtraShootWeapon
     uintptr_t ShootWeaponEntityComp = 0xff8;
     //--Class: STExtraBaseCharacter

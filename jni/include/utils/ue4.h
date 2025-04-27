@@ -181,7 +181,7 @@ namespace Ue4
                         printf("  Entry %d [0x%x]: 0x%lx -> \"%s\"\n", i, i, entry, name_buffer);
                     }
                 }
-                else if (i < 10 || i % 1000 == 0) // للحفاظ على حجم الملف معقول
+                else if (i < 10 || i % 1000 == 0)
                 {
                     fprintf(output_file, "│   │   │   ├── [%d] NULL\n", i);
                 }
