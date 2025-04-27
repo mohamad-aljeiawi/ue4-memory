@@ -23,13 +23,13 @@ This project is a program that reads memory of Unreal Engine 4 games on Android 
 ### Clone from GitHub
 
 ```
-git clone https://github.com/CP0004/ue4-memory
+git clone https://github.com/CP0004/ue4-memory.git
 cd ue4-memory-library
 ```
 
 ### Or Download ZIP
 
-1. Go to `https://github.com/CP0004/ue4-memory.git`
+1. Go to `https://github.com/CP0004/ue4-memory`
 2. Click the green "Code" button
 3. Select "Download ZIP"
 4. Extract the downloaded ZIP file to your preferred location
