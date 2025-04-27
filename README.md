@@ -2,6 +2,16 @@
 
 This project is a program that reads memory of Unreal Engine 4 games on Android using the NDK. The project can read data structures specific to the UE4 engine and dsiplay information about objects present in the game.
 
+## Community
+
+<div align="center">
+  <h3>Join Our Telegram Community</h3>
+  <a href="https://t.me/komyunitihak">
+    <img src="https://img.shields.io/badge/Telegram-Join%20Channel-blue?style=for-the-badge&logo=telegram" alt="Telegram Channel">
+  </a>
+  <p>Join <a href="https://t.me/komyunitihak"><strong>كوميونطي هاك</strong></a> on Telegram for discussions, updates, and support!</p>
+</div>
+
 ## Build Requirements
 
 - Android NDK
@@ -13,13 +23,13 @@ This project is a program that reads memory of Unreal Engine 4 games on Android 
 ### Clone from GitHub
 
 ```
-git clone https://github.com/CP0004/ue4-memory-library.git
+git clone https://github.com/CP0004/ue4-memory
 cd ue4-memory-library
 ```
 
 ### Or Download ZIP
 
-1. Go to `https://github.com/CP0004/ue4-memory-library`
+1. Go to `https://github.com/CP0004/ue4-memory.git`
 2. Click the green "Code" button
 3. Select "Download ZIP"
 4. Extract the downloaded ZIP file to your preferred location
