@@ -2,16 +2,6 @@
 
 This project is a program that reads memory of Unreal Engine 4 games on Android using the NDK. The project can read data structures specific to the UE4 engine and dsiplay information about objects present in the game.
 
-## Community
-
-<div align="center">
-  <h3>Join Our Telegram Community</h3>
-  <a href="https://t.me/komyunitihak">
-    <img src="https://img.shields.io/badge/Telegram-Join%20Channel-blue?style=for-the-badge&logo=telegram" alt="Telegram Channel">
-  </a>
-  <p>Join <a href="https://t.me/komyunitihak"><strong>كوميونطي هاك</strong></a> on Telegram for discussions, updates, and support!</p>
-</div>
-
 ## Build Requirements
 
 - Android NDK
