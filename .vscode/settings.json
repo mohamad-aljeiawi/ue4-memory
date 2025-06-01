@@ -51,6 +51,26 @@
     "streambuf": "cpp",
     "string_view": "cpp",
     "unordered_map": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "*.tcc": "cpp",
+    "compare": "cpp",
+    "random": "cpp",
+    "numeric": "cpp",
+    "tuple": "cpp",
+    "atomic": "cpp",
+    "bit": "cpp",
+    "chrono": "cpp",
+    "concepts": "cpp",
+    "exception": "cpp",
+    "iterator": "cpp",
+    "format": "cpp",
+    "functional": "cpp",
+    "list": "cpp",
+    "numbers": "cpp",
+    "ostream": "cpp",
+    "span": "cpp",
+    "system_error": "cpp",
+    "unordered_set": "cpp",
+    "utility": "cpp"
   }
 }

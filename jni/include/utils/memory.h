@@ -39,6 +39,20 @@ namespace Memory
         return std::string(buffer.data());
     }
 
+    std::string ReadFString(uintptr_t fstring_addr, pid_t pid)
+    {
+        Structs::FString fstr = Memory::Read<Structs::FString>(fstring_addr, pid);
+        if (!fstr.data || fstr.count <= 0 || fstr.count > 100)
+            return "";
+
+        std::vector<wchar_t> wide_buffer(fstr.count);
+        if (!Process::Read((void *)fstr.data, wide_buffer.data(), fstr.count * sizeof(wchar_t), pid))
+            return "";
+
+        std::wstring wname(wide_buffer.begin(), wide_buffer.end());
+        return std::string(wname.begin(), wname.end());
+    }
+
     std::string ReadString(uintptr_t address, pid_t pid)
     {
         const size_t chunk_size = 32;

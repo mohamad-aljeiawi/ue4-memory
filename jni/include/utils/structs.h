@@ -76,6 +76,13 @@ namespace Structs
         MinimalViewInfo POV;
     };
 
+    struct FString
+    {
+        uintptr_t data;
+        int count;
+        int max;
+    };
+
 } // namespace Structs
 
 #endif // STRUCTS_H

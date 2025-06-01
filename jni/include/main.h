@@ -10,11 +10,11 @@
 
 #include "utils/logger.h"
 #include "utils/process.h"
+#include "utils/structs.h"
 #include "utils/memory.h"
 #include "utils/offset.h"
 #include "utils/utils.h"
 #include "utils/ue4.h"
-#include "utils/structs.h"
 #include "utils/socket_server.h"
 #include "utils/frame_time.h"
 
