@@ -7,12 +7,14 @@
         "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/sources/cxx-stl/system/**",
         "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/**",
         "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/android",
-        "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/include"
+        "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/include",
+        "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/aarch64-linux-android",
+        "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/EGL"
       ],
-      "defines": [],
+      "defines": ["__ANDROID__", "EGL_OPENGL_ES3_BIT_KHR=0x00000040"],
       "compilerPath": "C:/Users/mobil/AppData/Local/Android/Sdk/ndk/29.0.13113456/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe",
-      "cStandard": "c17",
-      "cppStandard": "c++17",
+      "cStandard": "c23",
+      "cppStandard": "c++20",
       "intelliSenseMode": "clang-x64"
     }
   ],
