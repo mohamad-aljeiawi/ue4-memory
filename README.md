@@ -1,106 +1,93 @@
 # UE4 Game Memory Library
 
-This project is a program that reads memory of Unreal Engine 4 games on Android using the NDK. The project can read data structures specific to the UE4 engine and dsiplay information about objects present in the game.
+This project is a small library for reading memory from **Unreal Engine 4** games on Android. It uses the **Android NDK** along with **ImGui** to display in-game information. The source is written in **C++20** and targets rooted devices.
 
-## Build Requirements
+## Prerequisites
 
-- Android NDK
-- ADB (Android Debug Bridge) installed and working
-- Android device with root access
+- Android NDK installed
+- ADB (Android Debug Bridge) working
+- Rooted Android device
+- Build with **C++20**
 
-## Downloading and Installation
+Before building make sure to adjust the NDK path in both `build.bat` and `.vscode/c_cpp_properties.json` to match your local installation.
 
-### Clone from GitHub
+## Getting the Code
 
-```
+```bash
 git clone https://github.com/mohamad-aljeiawi/ue4-memory.git
-cd ue4-memory-library
+cd ue4-memory
 ```
 
-### Or Download ZIP
+After editing the NDK paths run the build script.
 
-1. Go to `https://github.com/mohamad-aljeiawi/ue4-memory`
-2. Click the green "Code" button
-3. Select "Download ZIP"
-4. Extract the downloaded ZIP file to your preferred location
+## Project Layout
 
-## Project Structure
+```
+ue4-memory/
+├── build.bat           Windows build and deployment script
+├── jni/                Source files and NDK configuration
+│   ├── Android.mk      NDK build settings
+│   ├── Application.mk  ABI and compiler options
+│   ├── src/            C++ sources (`main.cpp`)
+│   └── include/        Headers and helper libraries
+```
 
-### Main Files
+Key directories under `include/`:
 
-- `build.bat` - Build and run file for Android. It builds the project, transfers it to the device, and runs it. You must have ADB installed and working.
+- `utils/`  – memory helpers, process utils, touch support
+- `native/` – window creation and OpenGL rendering via ImGui
+- `types/`  – structures and offsets used by the target game
 
-### Directories
+## Building and Running
 
-- `jni/` - Directory containing source code and files necessary for building the project
+From a Windows command prompt:
 
-### Build Files
+```bash
+build.bat
+```
 
-- `jni/Android.mk` - File that defines how to build the project using NDK
-- `jni/Application.mk` - File that specifies application settings such as target ABI (arm64-v8a) and Android version
+The script will:
 
-### Source Code Files
+1. Build the project using the NDK
+2. Push the executable to `/data/local/tmp/` on the device
+3. Set executable permissions and launch it
 
-- `jni/src/main.cpp` - Main file containing the `main()` function and program logic
-- `jni/include/main.h` - Main header file
+Ensure your device is connected via ADB and has root access.
 
-### Libraries and Tools Directory
+## Rendering Overview
 
-- `jni/include/utils/` - Directory containing helper header files:
-  - `memory.h` - Functions for memory handling and reading
-  - `ue4.h` - Functions for working with the UE4 engine
-  - `socket_server.h` - Socket server for communicating with the program
-  - `offset.h` - Offset constants for accessing data in game memory
-  - `structs.h` - Structure definitions used in the project
-  - `utils.h` - Various helper functions
-  - `frame_time.h` - For controlling frame rate (FPS)
-  - `process.h` - Functions for process handling
-  - `logger.h` - For event logging
+Rendering is handled by `imgui_renderer.h`:
 
-## How to Build and Run
+```cpp
+namespace Renderer {
+    void Init(ANativeWindow* window, int width, int height);
+    void StartFrame();
+    void EndFrame();
+    void Shutdown();
+}
+```
 
-### Executing build.bat
+`StartFrame` and `EndFrame` are called once per draw loop. Drawing is performed through ImGui and helper utilities in `utils`.
 
-1. Open Command Prompt or PowerShell
-2. Navigate to the project directory
-   ```
-   cd path/to/ue4-memory-library
-   ```
-3. Run the build script
-   ```
-   build.bat
-   ```
+### Double-Buffer System
 
-If you encounter permission issues, run as administrator:
+`main.cpp` implements a simple double buffer to avoid race conditions between the drawing thread and the memory reader:
 
-1. Right-click on `build.bat`
-2. Select "Run as administrator"
+```cpp
+StructsGame::GameData game_buffers[2];
+std::atomic<int> write_buffer_index{0};
+std::atomic<int> ready_buffer_index{-1};
+```
 
-The build script will:
+The memory reader writes to `game_buffers[write_buffer_index]` while the drawing thread consumes `game_buffers[ready_buffer_index]`. After finishing a frame the indices are swapped. This approach keeps rendering smooth while data is updated asynchronously.
 
-1. Make sure Android NDK and SDK are on your machine
-2. Make sure ADB is working and can connect to your Android device
-3. Make sure your Android device has root access
-4. Build, transfer, and run the project
+To add another thread for reading data you can create a similar worker that fills the current write buffer and then updates `ready_buffer_index` once data is ready.
 
-The program performs the following steps:
+## Credits
 
-1. Builds the project using NDK
-2. Transfers the resulting file to `/data/local/tmp/` on the device
-3. Sets permissions
-4. Launches the UE4 game
-5. Runs our `memlib` program
+- **Touch simulation** is based on [kp7742/TouchSimulation](https://github.com/kp7742/TouchSimulation), extended with additional touch zones and orientation handling.
+- `ANativeWindowCreator.h` comes from [enenH/AndroidImgui](https://github.com/enenH/AndroidImgui).
 
-## How the Program Works
+## License
 
-The program searches for a UE4 game process and then obtains the base address of the `libUE4.so` library. After that, it uses specific offsets to access data structures within the game and read information about objects. The program can also control the frame rate (FPS) and create a socket server to communicate with other applications.
-
-## Customizing for Different UE4 Games
-
-To use this library with different UE4 games:
-
-1. Update the package name in `main.cpp`
-2. Adjust the offsets in `offset.h` to match the target game's memory layout
-3. Modify the structure definitions in `structs.h` if necessary
-
-Different UE4 games may have slightly different memory layouts, but the basic principles remain the same. You may need to analyze the specific game to find the correct offsets.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for the full text.
